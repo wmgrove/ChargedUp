@@ -4,8 +4,6 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.SPI;
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 
@@ -32,7 +30,6 @@ public class Drivebase {
 
     //Miscellaneous utilities
     SlewRateLimiter acceleration;
-    AHRS navx;
 
     //Constructor
     public Drivebase () {
@@ -46,7 +43,6 @@ public class Drivebase {
         }
         
         acceleration = new SlewRateLimiter(Utilities.ACCEL);
-        navx = new AHRS(SPI.Port.kMXP);
     }
 
     //Run
