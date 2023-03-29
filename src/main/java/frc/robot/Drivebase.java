@@ -41,7 +41,7 @@ public class Drivebase {
         return self;
     }
 
-    //Contstructor
+    //Constructor
     private Drivebase () {
         for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
             leftMotors[i] = new CANSparkMax(Utilities.LEFTMOTORS[i], MotorType.kBrushless);
