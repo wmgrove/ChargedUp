@@ -9,6 +9,8 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 
 public class Drivebase {
 
+    Drivebase self = null;
+
     //Drive Motor controllers
     CANSparkMax[] leftMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
     CANSparkMax[] rightMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
@@ -31,8 +33,16 @@ public class Drivebase {
     //Miscellaneous utilities
     SlewRateLimiter acceleration;
 
-    //Constructor
-    public Drivebase () {
+    //Singleton accessor
+    public Drivebase getDrivebase() {
+        if (self == null) {
+            self = new Drivebase();
+        }
+        return self;
+    }
+
+    //Contstructor
+    private Drivebase () {
         for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
             leftMotors[i] = new CANSparkMax(Utilities.LEFTMOTORS[i], MotorType.kBrushless);
             rightMotors[i] = new CANSparkMax(Utilities.RIGHTMOTORS[i], MotorType.kBrushless);
@@ -45,8 +55,16 @@ public class Drivebase {
         acceleration = new SlewRateLimiter(Utilities.ACCEL);
     }
 
-    //Run
+    //Robot functions
     public void run() {
+        //TODO: implement
+    }
+
+    public void idle() {
+        //TODO: implement
+    }
+
+    public void auto() {
         //TODO: implement
     }
 
