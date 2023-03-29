@@ -80,6 +80,11 @@ public class Drivebase {
         setRightSpeed(speed - turn);
     }
 
+    public void tank (double leftSpeed, double rightSpeed) {
+        setLeftSpeed(leftSpeed);
+        setRightSpeed(rightSpeed);
+    }
+
     //Control code
     private void setLeftSpeed (double speed) {
         for(CANSparkMax motor: leftMotors) {
