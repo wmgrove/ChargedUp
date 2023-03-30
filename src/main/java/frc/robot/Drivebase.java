@@ -9,7 +9,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 
 public class Drivebase {
 
-    Drivebase self = null;
+    static Drivebase self = null;
 
     //Drive Motor controllers
     CANSparkMax[] leftMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
@@ -18,6 +18,7 @@ public class Drivebase {
     //Sensor data
     double odomoterOrigin = 0;
     double directionOrigin = 0;
+    Sensors sensors = Sensors.getSensors();
 
     //Autonomous data
     double autodriveTarget = 0;
@@ -34,7 +35,7 @@ public class Drivebase {
     SlewRateLimiter acceleration;
 
     //Singleton accessor
-    public Drivebase getDrivebase() {
+    public static Drivebase getDrivebase() {
         if (self == null) {
             self = new Drivebase();
         }
@@ -56,33 +57,49 @@ public class Drivebase {
     }
 
     //Robot functions
-    public void run() {
+    public void run () {
+        if(isAutodriveActive) {
+            setAutoSpeed();
+        }
+    }
+
+    public void idle () {
         //TODO: implement
     }
 
-    public void idle() {
-        //TODO: implement
-    }
-
-    public void auto() {
+    public void auto () {
         //TODO: implement
     }
 
     //Autonomous
-    public void autodrive(double distance) {
+    public void autodrive (double distance) {
         autodriveTarget += distance;
+        isAutodriveActive = true;
+    }
 
+    private void setAutoSpeed () {
+        double speed = drivePID.calculate(odomoterOrigin, autodriveTarget);
+        double turn = turnPID.calculate(sensors.getYaw(), autoturnTarget);
+        setLeftSpeed(speed + turn);
+        setRightSpeed(speed - turn);
     }
 
     //Teleop
-    public void arcade(double speed, double turn) {
+    public void arcade (double speed, double turn) {
+        speed = acceleration.calculate(speed);
         setLeftSpeed(speed + turn);
         setRightSpeed(speed - turn);
+        if (!(speed == 0 && turn == 0)) {
+            isAutodriveActive = false;
+        }
     }
 
     public void tank (double leftSpeed, double rightSpeed) {
         setLeftSpeed(leftSpeed);
         setRightSpeed(rightSpeed);
+        if (!(leftSpeed == 0 && rightSpeed == 0)) {
+            isAutodriveActive = false;
+        }
     }
 
     //Control code
