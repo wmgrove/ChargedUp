@@ -21,4 +21,8 @@ public class Sensors {
     public double getYaw () {
         return navx.getYaw();
     }
+
+    public double getAngle () {
+        return navx.getAngle();
+    }
 }

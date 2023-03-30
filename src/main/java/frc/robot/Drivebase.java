@@ -16,8 +16,9 @@ public class Drivebase {
     CANSparkMax[] rightMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
 
     //Sensor data
-    double odomoterOrigin = 0;
-    double directionOrigin = 0;
+    double odometerOrigin = 0;
+    double odometer = 0;
+    double directionOrigin;
     Sensors sensors = Sensors.getSensors();
 
     //Autonomous data
@@ -34,7 +35,11 @@ public class Drivebase {
     //Miscellaneous utilities
     SlewRateLimiter acceleration;
 
-    //Singleton accessor
+    /**
+     * Provides the singleton for the drivebase
+     * 
+     * @return Drivebase singleton
+    */
     public static Drivebase getDrivebase() {
         if (self == null) {
             self = new Drivebase();
@@ -42,7 +47,11 @@ public class Drivebase {
         return self;
     }
 
-    //Constructor
+    /**
+     * Constructor
+     * 
+     * Sets motor controller CAN IDs, idle mode, and brake mode
+     */
     private Drivebase () {
         for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
             leftMotors[i] = new CANSparkMax(Utilities.LEFTMOTORS[i], MotorType.kBrushless);
@@ -54,9 +63,16 @@ public class Drivebase {
         }
         
         acceleration = new SlewRateLimiter(Utilities.ACCEL);
+        directionOrigin = sensors.getAngle();
     }
 
     //Robot functions
+
+    /**
+     * Updates drive components periodically
+     * 
+     * Sets motor controllers to PID speed when auto-drive is active
+     */
     public void run () {
         if(isAutodriveActive) {
             setAutoSpeed();
@@ -72,19 +88,60 @@ public class Drivebase {
     }
 
     //Autonomous
+
+    /**
+     * Sets the auto-drive distance
+     * 
+     * @param distance the distance the robot should drive from its current location
+     */
     public void autodrive (double distance) {
         autodriveTarget += distance;
+        drivePID.setSetpoint(autodriveTarget);
+        drivePID.setTolerance(Utilities.DRIVETOLERANCE);
+        isAutodriveActive = true;
+    }
+    
+    /**
+     * Sets the auto-turn angle
+     * 
+     * @param angle the size of the angle the robot should travel from its current position. Left is positive.
+     */
+    public void autoturn (double angle) {
+        autoturnTarget += angle;
+        turnPID.setSetpoint(angle);
+        turnPID.setTolerance(Utilities.TURNTOLERANCE);
         isAutodriveActive = true;
     }
 
+    /**
+     * Defines motor speed based on PIDs for driving and turning to target
+     */
     private void setAutoSpeed () {
-        double speed = drivePID.calculate(odomoterOrigin, autodriveTarget);
-        double turn = turnPID.calculate(sensors.getYaw(), autoturnTarget);
+        double speed = drivePID.calculate(odometer);
+        double turn = turnPID.calculate(sensors.getAngle() - directionOrigin, autoturnTarget);
         setLeftSpeed(speed + turn);
         setRightSpeed(speed - turn);
     }
 
+    /**
+     * Whether or not the robot has reached its drive target
+     * 
+     * @return True if robot is at its target, otherwise false
+     */
+    public boolean atTarget() {
+        return (drivePID.atSetpoint() && turnPID.atSetpoint());
+    }
+
     //Teleop
+
+    /**
+     * Defines motor speeds given arcade drive inputs.
+     * 
+     * Intended use is for one control stick axis to define speed, while another defines turn.
+     * 
+     * @param speed The motor power the robot should use [-1, 1]
+     * @param turn The motor power to turn with [-1, 1]
+     */
     public void arcade (double speed, double turn) {
         speed = acceleration.calculate(speed);
         setLeftSpeed(speed + turn);
@@ -94,6 +151,13 @@ public class Drivebase {
         }
     }
 
+    /**
+     * Defines motor speeds given tank drive inputs.
+     * 
+     * Intended use is for one axis to define left-side motor speed, while the other axis defines right-side motor speed.
+     * @param leftSpeed Motor speed for left motors [-1, 1]
+     * @param rightSpeed Motor speed for right motors [-1, 1]
+     */
     public void tank (double leftSpeed, double rightSpeed) {
         setLeftSpeed(leftSpeed);
         setRightSpeed(rightSpeed);
@@ -103,16 +167,41 @@ public class Drivebase {
     }
 
     //Control code
+
+    /**
+     * Defines left-motor speeds
+     * 
+     * @param speed motor power [-1, 1]
+     */
     private void setLeftSpeed (double speed) {
         for(CANSparkMax motor: leftMotors) {
             motor.set(speed);
         }
     }
 
+    /**
+     * Defines right-motor speeds.
+     * 
+     * @param speed motor power [-1, 1]
+     */
     private void setRightSpeed (double speed) {
         for(CANSparkMax motor: rightMotors) {
             motor.set(speed);
         }
     }
+
+    /**
+     * Resets robot's default angle to current facing.
+     */
+    private void resetDirectionOrigin() {
+        autoturnTarget = 0;
+        directionOrigin = sensors.getAngle();
+    }
     
+    /**
+     * Resets robot's default position to current position.
+     */
+    private void resetOdometer () {
+        odometerOrigin = odometer;
+    }
 }
