@@ -33,7 +33,7 @@ public class Drivebase {
     PIDController turnPID = new PIDController(Utilities.TURNPID[0], Utilities.TURNPID[1], Utilities.TURNPID[2]);
 
     //Miscellaneous utilities
-    SlewRateLimiter acceleration;
+    SlewRateLimiter acceleration = new SlewRateLimiter(Utilities.ACCEL);
 
     /**
      * Provides the singleton for the drivebase
@@ -50,7 +50,7 @@ public class Drivebase {
     /**
      * Constructor
      * 
-     * Sets motor controller CAN IDs, idle mode, and brake mode
+     * Sets motor controller CAN IDs, idle mode, and brake mode. Defines direction origin
      */
     private Drivebase () {
         for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
@@ -61,8 +61,7 @@ public class Drivebase {
             leftMotors[i].setInverted(false);
             rightMotors[i].setInverted(true);
         }
-        
-        acceleration = new SlewRateLimiter(Utilities.ACCEL);
+
         directionOrigin = sensors.getAngle();
     }
 
