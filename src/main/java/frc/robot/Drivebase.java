@@ -50,7 +50,8 @@ public class Drivebase {
     /**
      * Constructor
      * 
-     * Sets motor controller CAN IDs, idle mode, and brake mode. Defines direction origin
+     * <p>Sets motor controller CAN IDs, idle mode, and brake mode. Defines
+     * direction origin
      */
     private Drivebase () {
         for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
@@ -70,7 +71,7 @@ public class Drivebase {
     /**
      * Updates drive components periodically
      * 
-     * Sets motor controllers to PID speed when auto-drive is active
+     * <p>Sets motor controllers to PID speed when auto-drive is active
      */
     public void run () {
         if(isAutodriveActive) {
@@ -91,7 +92,8 @@ public class Drivebase {
     /**
      * Sets the auto-drive distance
      * 
-     * @param distance the distance the robot should drive from its current location
+     * @param distance the distance the robot should drive from its current
+     * location
      */
     public void autodrive (double distance) {
         autodriveTarget += distance;
@@ -103,7 +105,8 @@ public class Drivebase {
     /**
      * Sets the auto-turn angle
      * 
-     * @param angle the size of the angle the robot should travel from its current position. Left is positive.
+     * @param angle the size of the angle the robot should travel from its
+     * current position. Left is positive.
      */
     public void autoturn (double angle) {
         autoturnTarget += angle;
@@ -136,7 +139,8 @@ public class Drivebase {
     /**
      * Defines motor speeds given arcade drive inputs.
      * 
-     * Intended use is for one control stick axis to define speed, while another defines turn.
+     * <p>Intended use is for one control stick axis to define speed, while
+     * another defines turn.
      * 
      * @param speed The motor power the robot should use [-1, 1]
      * @param turn The motor power to turn with [-1, 1]
@@ -153,7 +157,8 @@ public class Drivebase {
     /**
      * Defines motor speeds given tank drive inputs.
      * 
-     * Intended use is for one axis to define left-side motor speed, while the other axis defines right-side motor speed.
+     * <p>Intended use is for one axis to define left-side motor speed, while
+     * the other axis defines right-side motor speed.
      * @param leftSpeed Motor speed for left motors [-1, 1]
      * @param rightSpeed Motor speed for right motors [-1, 1]
      */
