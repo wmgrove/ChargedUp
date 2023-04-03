@@ -35,10 +35,10 @@ public class Driver {
     public void run() {
         switch (controlMode){
             case ARCADE: 
-                drivebase.arcade(getLeftStick()[1], getRightStick()[0]);
+                drivebase.arcade(getLeftY(), getRightX());
                 break;
             case TANK:
-                drivebase.tank(getLeftStick()[1], getRightStick()[1]);
+                drivebase.tank(getLeftY(), getRightY());
                 break;
         }
     }
@@ -47,26 +47,39 @@ public class Driver {
      * Provides information about the state of the left stick with a
      * pre-applied deadband.
      * 
-     * @return An array of 2 elements, where the X-axis is at index 0, and the
-     * Y-axis is at index 1.
+     * @return The X value of the left stick with deadband applied
      */
-    private double[] getLeftStick() {
-        double[] output = 
-            {Utilities.deadband(controller.getLeftX(), Utilities.DRIVERDEADBAND),
-            Utilities.deadband(controller.getLeftY(), Utilities.DRIVERDEADBAND)};
-        return output;
+    private double getLeftX() {
+        return Utilities.deadband(controller.getLeftX(), Utilities.DRIVERDEADBAND);
     }
 
     /**
-     * Provides information about the state of the rightt stick with a pre-applied deadband.
+     * Provides information about the state of the left stick with a
+     * pre-applied deadband.
      * 
-     * @return An array of 2 elements, where the X-axis is at index 0, and the
-     * Y-axis is at index 1.
+     * @return The Y value of the left stick with deadband applied
      */
-    private double[] getRightStick() {
-        double[] output = 
-            {Utilities.deadband(controller.getRightX(), Utilities.DRIVERDEADBAND),
-            Utilities.deadband(controller.getRightY(), Utilities.DRIVERDEADBAND)};
-        return output;
+    private double getLeftY() {
+        return Utilities.deadband(controller.getLeftY(), Utilities.DRIVERDEADBAND);
+    }
+
+    /**
+     * Provides information about the state of the right stick with a
+     * pre-applied deadband.
+     * 
+     * @return The X value of the right stick with deadband applied
+     */
+    private double getRightX() {
+        return Utilities.deadband(controller.getRightX(), Utilities.DRIVERDEADBAND);
+    }
+
+    /**
+     * Provides information about the state of the right stick with a
+     * pre-applied deadband.
+     * 
+     * @return The Y value of the right stick with deadband applied
+     */
+    private double getRightY() {
+        return Utilities.deadband(controller.getRightY(), Utilities.DRIVERDEADBAND);
     }
 }
