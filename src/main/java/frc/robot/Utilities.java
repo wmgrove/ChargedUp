@@ -19,6 +19,7 @@ public class Utilities {
 
     //Controllers
     public static final int DRIVERPORT = 0;
+    public static final double DRIVERDEADBAND = 0.2;
 
     /**
      * Sets a limit to the minimum non-zero value of an input. Values below
