@@ -49,6 +49,7 @@ public class Driver {
      * 
      * @return The X value of the left stick with deadband applied
      */
+    @SuppressWarnings("unused")
     private double getLeftX() {
         return Utilities.deadband(controller.getLeftX(), Utilities.DRIVERDEADBAND);
     }

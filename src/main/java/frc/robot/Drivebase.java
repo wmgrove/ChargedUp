@@ -197,6 +197,7 @@ public class Drivebase {
     /**
      * Resets robot's default angle to current facing.
      */
+    @SuppressWarnings("unused")
     private void resetDirectionOrigin() {
         autoturnTarget = 0;
         directionOrigin = sensors.getAngle();
@@ -205,6 +206,7 @@ public class Drivebase {
     /**
      * Resets robot's default position to current position.
      */
+    @SuppressWarnings("unused")
     private void resetOdometer () {
         odometerOrigin = odometer;
     }
