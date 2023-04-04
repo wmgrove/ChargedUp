@@ -21,6 +21,9 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  private Driver driver = Driver.getDriver();
+  private Drivebase drivebase = Drivebase.getDrivebase();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -81,6 +84,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    //Driver and operator must run first, followed by autonomous, to improve
+    //responsiveness.
+    driver.run();
+    drivebase.run();
   }
   /** This function is called once when the robot is disabled. */
   @Override
