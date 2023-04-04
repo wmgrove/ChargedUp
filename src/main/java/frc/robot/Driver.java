@@ -30,9 +30,9 @@ public class Driver {
     private Driver() {}
 
     /**
-     * Periodic code
+     * Periodic code during teleop
      */
-    public void run() {
+    public void run () {
         switch (controlMode){
             case ARCADE: 
                 drivebase.arcade(getLeftY(), getRightX());
@@ -42,6 +42,28 @@ public class Driver {
                 break;
         }
     }
+
+    /**
+     * Periodic code during autonomous
+     */
+    public void auto () {
+
+    }
+
+    /**
+     * Periodic code at all times
+     */
+    public void idle () {
+
+    }
+
+    /**
+     * Public code for testing
+     */
+    public void test () {
+
+    }
+
 
     /**
      * Provides information about the state of the left stick with a
