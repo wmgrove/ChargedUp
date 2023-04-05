@@ -21,6 +21,14 @@ public class Utilities {
     public static final int DRIVERPORT = 0;
     public static final double DRIVERDEADBAND = 0.2;
 
+    //Gripper
+    public static final int LEFTINTAKE = 0;
+    public static final int RIGHTINTAKE = 0;
+    public static final int WRIST = 0;
+    public static final int CLAWPWM = 0;
+    public static final double CONEMODE = 0;
+    public static final double CUBEMODE = 0;
+
     /**
      * Sets a limit to the minimum non-zero value of an input. Values below
      * this limit become zero

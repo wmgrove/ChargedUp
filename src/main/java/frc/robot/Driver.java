@@ -10,7 +10,9 @@ public class Driver {
     
     enum DriverState {ARCADE, TANK}
     DriverState controlMode = DriverState.ARCADE;
+
     Drivebase drivebase = Drivebase.getDrivebase();
+    Gripper gripper = Gripper.getGripper();
 
     /**
      * Provides singleton for the driver
@@ -40,6 +42,15 @@ public class Driver {
             case TANK:
                 drivebase.tank(getLeftY(), getRightY());
                 break;
+        }
+        
+        if (c_ConeMode() != c_CubeMode()) {
+            if (c_ConeMode()) {
+                gripper.coneMode();
+            }
+            if (c_CubeMode()) {
+                gripper.cubeMode();
+            }
         }
     }
 
@@ -104,5 +115,13 @@ public class Driver {
      */
     private double getRightY() {
         return Utilities.deadband(controller.getRightY(), Utilities.DRIVERDEADBAND);
+    }
+
+    private boolean c_ConeMode() {
+        return controller.getLeftTriggerAxis() > 0.2;
+    }
+
+    private boolean c_CubeMode() {
+        return controller.getRightTriggerAxis() > 0.2;
     }
 }
