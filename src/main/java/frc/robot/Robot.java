@@ -23,6 +23,7 @@ public class Robot extends TimedRobot {
 
   private Driver driver = Driver.getDriver();
   private Drivebase drivebase = Drivebase.getDrivebase();
+  private Gripper gripper = Gripper.getGripper();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -85,9 +86,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     //Driver and operator must run first, followed by autonomous, to improve
-    //responsiveness.
+    //responsiveness. Similarly, arm should run before gripper due to wrist.
     driver.run();
     drivebase.run();
+    gripper.run();
   }
   /** This function is called once when the robot is disabled. */
   @Override
