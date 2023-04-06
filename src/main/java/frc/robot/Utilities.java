@@ -4,30 +4,44 @@ public class Utilities {
 
     //PIDs
     //values are stored in order P-I-D
-    public static final double[] DRIVEPID = {0,0,0};
-    public static final double DRIVETOLERANCE = 2;
-    public static final double[] TURNPID = {0,0,0};
-    public static final double TURNTOLERANCE = 2;
+    public static final double[] kDrivePID = {0,0,0};
+    public static final double kDriveTolerance = 2;
+    public static final double[] kTurnPID = {0,0,0};
+    public static final double kTurnTolerance = 2;
 
     //Motors
-    public static final int[] LEFTMOTORS = {};
-    public static final int[] RIGHTMOTORS = {};
-    public static final int DRIVEMOTORCOUNT = 3;
+    public static final int[] kLeftMotors = {};
+    public static final int[] kRightMotors = {};
+    public static final int kDriveMotorCount = 3;
 
     //Drivebase
-    public static final double ACCEL = 0;
+    public static final double kAccel = 0;
 
-    //Controllers
-    public static final int DRIVERPORT = 0;
-    public static final double DRIVERDEADBAND = 0.2;
+    //Driver controller
+    public static final int kDriverPort = 0;
+    public static final double kDriverDeadband = 0.2;
+
+    //Operator Controller
+    public static final int kOperatorPort = 0;
+    public static final int kTrigger = 1;
+    public static final int kDown = 2;
+    public static final int kUp = 3;
+    public static final int kLeft = 4;
+    public static final int kRight = 5;
+    public static final int kLeftFar = 6;
+    public static final int kLeftNear = 7;
+    public static final int kCenterLeft = 8;
+    public static final int kCenterRight = 9;
+    public static final int kNearRight = 10;
+    public static final int kFarRight = 11;
 
     //Gripper
-    public static final int LEFTINTAKE = 0;
-    public static final int RIGHTINTAKE = 0;
-    public static final int WRIST = 0;
-    public static final int CLAWPWM = 0;
-    public static final double CONEMODE = 0;
-    public static final double CUBEMODE = 0;
+    public static final int kLeftIntake = 0;
+    public static final int kRightIntake = 0;
+    public static final int kWrist = 0;
+    public static final int kClawPWM = 0;
+    public static final double kConeClawPosition = 0;
+    public static final double kCubeClawPosition = 0;
 
     /**
      * Sets a limit to the minimum non-zero value of an input. Values below

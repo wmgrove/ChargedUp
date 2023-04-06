@@ -2,6 +2,8 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.math.controller.PIDController;
 
@@ -9,13 +11,14 @@ public class Gripper {
     static Gripper self;
 
     //Motors
-    TalonSRX leftIntake = new TalonSRX(Utilities.LEFTINTAKE);
-    TalonSRX rightIntake = new TalonSRX(Utilities.RIGHTINTAKE);
-    TalonSRX wrist = new TalonSRX(Utilities.WRIST);
-    Servo claw = new Servo(Utilities.CLAWPWM);
+    TalonSRX leftIntake = new TalonSRX(Utilities.kLeftIntake);
+    TalonSRX rightIntake = new TalonSRX(Utilities.kRightIntake);
+    TalonSRX wrist = new TalonSRX(Utilities.kWrist);
+    Servo claw = new Servo(Utilities.kClawPWM);
 
     //Control
     PIDController thetaPID;
+    Encoder theta = new Encoder(0, 0); //TODO: Put real values here
 
     //States
     enum ObjectState {CONE, CUBE}
@@ -37,10 +40,10 @@ public class Gripper {
     public void run () {
         switch (gamepiece) {
             case CONE:
-                claw.set(Utilities.CONEMODE);
+                claw.set(Utilities.kConeClawPosition);
                 break;
             case CUBE:
-                claw.set(Utilities.CUBEMODE);
+                claw.set(Utilities.kCubeClawPosition);
                 break;
         }
         switch (mode) {

@@ -12,8 +12,8 @@ public class Drivebase {
     static Drivebase self = null;
 
     //Drive Motor controllers
-    CANSparkMax[] leftMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
-    CANSparkMax[] rightMotors = new CANSparkMax[Utilities.DRIVEMOTORCOUNT];
+    CANSparkMax[] leftMotors = new CANSparkMax[Utilities.kDriveMotorCount];
+    CANSparkMax[] rightMotors = new CANSparkMax[Utilities.kDriveMotorCount];
 
     //Sensor data
     double odometerOrigin = 0;
@@ -29,11 +29,11 @@ public class Drivebase {
     double autoturnTarget = 0;
     boolean isAutoturnActive = false;
 
-    PIDController drivePID = new PIDController(Utilities.DRIVEPID[0], Utilities.DRIVEPID[1], Utilities.DRIVEPID[2]);
-    PIDController turnPID = new PIDController(Utilities.TURNPID[0], Utilities.TURNPID[1], Utilities.TURNPID[2]);
+    PIDController drivePID = new PIDController(Utilities.kDrivePID[0], Utilities.kDrivePID[1], Utilities.kDrivePID[2]);
+    PIDController turnPID = new PIDController(Utilities.kTurnPID[0], Utilities.kTurnPID[1], Utilities.kTurnPID[2]);
 
     //Miscellaneous utilities
-    SlewRateLimiter acceleration = new SlewRateLimiter(Utilities.ACCEL);
+    SlewRateLimiter acceleration = new SlewRateLimiter(Utilities.kAccel);
 
     /**
      * Provides the singleton for the drivebase
@@ -54,9 +54,9 @@ public class Drivebase {
      * direction origin
      */
     private Drivebase () {
-        for (int i = 0; i < Utilities.DRIVEMOTORCOUNT; i++) {
-            leftMotors[i] = new CANSparkMax(Utilities.LEFTMOTORS[i], MotorType.kBrushless);
-            rightMotors[i] = new CANSparkMax(Utilities.RIGHTMOTORS[i], MotorType.kBrushless);
+        for (int i = 0; i < Utilities.kDriveMotorCount; i++) {
+            leftMotors[i] = new CANSparkMax(Utilities.kLeftMotors[i], MotorType.kBrushless);
+            rightMotors[i] = new CANSparkMax(Utilities.kRightMotors[i], MotorType.kBrushless);
             leftMotors[i].setIdleMode(IdleMode.kBrake);
             rightMotors[i].setIdleMode(IdleMode.kBrake);
             leftMotors[i].setInverted(false);
@@ -98,7 +98,7 @@ public class Drivebase {
     public void autodrive (double distance) {
         autodriveTarget += distance;
         drivePID.setSetpoint(autodriveTarget);
-        drivePID.setTolerance(Utilities.DRIVETOLERANCE);
+        drivePID.setTolerance(Utilities.kDriveTolerance);
         isAutodriveActive = true;
     }
     
@@ -111,7 +111,7 @@ public class Drivebase {
     public void autoturn (double angle) {
         autoturnTarget += angle;
         turnPID.setSetpoint(angle);
-        turnPID.setTolerance(Utilities.TURNTOLERANCE);
+        turnPID.setTolerance(Utilities.kTurnTolerance);
         isAutodriveActive = true;
     }
 

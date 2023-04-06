@@ -6,7 +6,7 @@ public class Driver {
 
     static Driver self;
 
-    XboxController controller = new XboxController(Utilities.DRIVERPORT);
+    XboxController controller = new XboxController(Utilities.kDriverPort);
     
     enum DriverState {ARCADE, TANK}
     DriverState controlMode = DriverState.ARCADE;
@@ -84,7 +84,7 @@ public class Driver {
      */
     @SuppressWarnings("unused")
     private double getLeftX() {
-        return Utilities.deadband(controller.getLeftX(), Utilities.DRIVERDEADBAND);
+        return Utilities.deadband(controller.getLeftX(), Utilities.kDriverDeadband);
     }
 
     /**
@@ -94,7 +94,7 @@ public class Driver {
      * @return The Y value of the left stick with deadband applied
      */
     private double getLeftY() {
-        return Utilities.deadband(controller.getLeftY(), Utilities.DRIVERDEADBAND);
+        return Utilities.deadband(controller.getLeftY(), Utilities.kDriverDeadband);
     }
 
     /**
@@ -104,7 +104,7 @@ public class Driver {
      * @return The X value of the right stick with deadband applied
      */
     private double getRightX() {
-        return Utilities.deadband(controller.getRightX(), Utilities.DRIVERDEADBAND);
+        return Utilities.deadband(controller.getRightX(), Utilities.kDriverDeadband);
     }
 
     /**
@@ -114,7 +114,7 @@ public class Driver {
      * @return The Y value of the right stick with deadband applied
      */
     private double getRightY() {
-        return Utilities.deadband(controller.getRightY(), Utilities.DRIVERDEADBAND);
+        return Utilities.deadband(controller.getRightY(), Utilities.kDriverDeadband);
     }
 
     private boolean c_ConeMode() {
