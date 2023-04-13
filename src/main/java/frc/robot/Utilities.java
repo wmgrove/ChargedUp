@@ -55,6 +55,9 @@ public class Utilities {
     //Arm
     public static final double kExtensionAccel = 0;
     public static final double kElevationAccel = 0;
+    public static final int kLeftLimitDIO = 0;
+    public static final int kRightLimitDIO = 0;
+    public static final int kSlidePot = 0;
 
     //Sensors
     public static final int kCoastDIO = 0;
