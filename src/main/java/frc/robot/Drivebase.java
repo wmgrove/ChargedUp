@@ -29,8 +29,8 @@ public class Drivebase {
     double autoturnTarget = 0;
     boolean isAutoturnActive = false;
 
-    PIDController drivePID = new PIDController(Utilities.kDrivePID[0], Utilities.kDrivePID[1], Utilities.kDrivePID[2]);
-    PIDController turnPID = new PIDController(Utilities.kTurnPID[0], Utilities.kTurnPID[1], Utilities.kTurnPID[2]);
+    PIDController drivePID = Utilities.pidInitializer(Utilities.kDrivePID);
+    PIDController turnPID = Utilities.pidInitializer(Utilities.kTurnPID);
 
     //Miscellaneous utilities
     SlewRateLimiter acceleration = new SlewRateLimiter(Utilities.kAccel);
