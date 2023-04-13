@@ -95,7 +95,18 @@ public class Utilities {
         return input;
     }
 
+    /**
+     * Construct a PID Controller from an array
+     * 
+     * @param pidArray a double array of length 3 in the order P, I, D that
+     * defines the PID Controller
+     * @return A PID controller defined by the array
+     * @throws IndexOutOfBoundsException throws error if array of incorrect length is given
+     */
     public static PIDController pidInitializer(double[] pidArray) {
+        if (pidArray.length != 3) {
+            throw new IndexOutOfBoundsException("Array must be of length 3");
+        }
         return new PIDController(pidArray[0], pidArray[1], pidArray[2]);
     }
     
