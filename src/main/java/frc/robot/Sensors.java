@@ -1,6 +1,8 @@
 package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Sensors {
@@ -8,6 +10,8 @@ public class Sensors {
     static Sensors self;
 
     AHRS navx = new AHRS(SPI.Port.kMXP);
+
+    DigitalInput forceCoast = new DigitalInput(Utilities.kCoastDIO);
 
     public static Sensors getSensors () {
         if (self == null) {
@@ -24,5 +28,9 @@ public class Sensors {
 
     public double getAngle () {
         return navx.getAngle();
+    }
+
+    public boolean getCoast() {
+        return forceCoast.get();
     }
 }

@@ -11,6 +11,8 @@ public class Utilities {
     public static final double[] kTurnPID = {0,0,0};
     public static final double kTurnTolerance = 2;
     public static final double[] kExtensionPID = {0,0,0};
+    public static final double[] kElevationPID = {0,0,0};
+    public static final double[] kSlidePID = {0,0,0};
 
     //Motors
     public static final int[] kLeftMotors = {};
@@ -53,6 +55,9 @@ public class Utilities {
     //Arm
     public static final double kExtensionAccel = 0;
     public static final double kElevationAccel = 0;
+
+    //Sensors
+    public static final int kCoastDIO = 0;
 
     /**
      * Sets a limit to the minimum non-zero value of an input. Values below

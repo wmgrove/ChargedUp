@@ -18,15 +18,13 @@ public class Arm {
     Spark slideMotor = new Spark(Utilities.kSlide);
 
     //PIDs
-    PIDController slideController;
-    PIDController elevationController;
-    PIDController extensionController;
+    PIDController slideController = Utilities.pidInitializer(Utilities.kSlidePID);
+    PIDController elevationController = Utilities.pidInitializer(Utilities.kElevationPID);
+    PIDController extensionController = Utilities.pidInitializer(Utilities.kExtensionPID);
 
     //Control
     SlewRateLimiter elevationAccel = new SlewRateLimiter(Utilities.kElevationAccel);
     SlewRateLimiter extensionAccel = new SlewRateLimiter(Utilities.kExtensionAccel);
-
-    DigitalInput forceCoast;
 
     boolean autoSlide;
     boolean autoElevate;
