@@ -1,5 +1,7 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
+
 public class Utilities {
 
     //PIDs
@@ -8,11 +10,19 @@ public class Utilities {
     public static final double kDriveTolerance = 2;
     public static final double[] kTurnPID = {0,0,0};
     public static final double kTurnTolerance = 2;
+    public static final double[] kExtensionPID = {0,0,0};
 
     //Motors
     public static final int[] kLeftMotors = {};
     public static final int[] kRightMotors = {};
     public static final int kDriveMotorCount = 3;
+    public static final int kLeftIntake = 0;
+    public static final int kRightIntake = 0;
+    public static final int kWrist = 0;
+    public static final int kElevation = 0;
+    public static final int kExtension = 0;
+    public static final int kSlide = 0;
+
 
     //Drivebase
     public static final double kAccel = 0;
@@ -36,12 +46,13 @@ public class Utilities {
     public static final int kFarRight = 11;
 
     //Gripper
-    public static final int kLeftIntake = 0;
-    public static final int kRightIntake = 0;
-    public static final int kWrist = 0;
     public static final int kClawPWM = 0;
     public static final double kConeClawPosition = 0;
     public static final double kCubeClawPosition = 0;
+
+    //Arm
+    public static final double kExtensionAccel = 0;
+    public static final double kElevationAccel = 0;
 
     /**
      * Sets a limit to the minimum non-zero value of an input. Values below
@@ -77,6 +88,10 @@ public class Utilities {
             input = (input/Math.abs(input)) * Math.abs(limit);
         }
         return input;
+    }
+
+    public static PIDController pidInitializer(double[] pidArray) {
+        return new PIDController(pidArray[0], pidArray[1], pidArray[2]);
     }
     
 }
