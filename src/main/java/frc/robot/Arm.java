@@ -60,4 +60,11 @@ public class Arm {
     }
 
     private Arm () {}
+
+    private void bound () {
+    }
+
+    public void autoExtend (double target) {
+
+    }
 }

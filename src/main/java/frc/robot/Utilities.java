@@ -59,6 +59,10 @@ public class Utilities {
     public static final int kRightLimitDIO = 0;
     public static final int kSlidePot = 0;
 
+    public static final double kHeightLimit = 0;
+    public static final double kReachLimit = 0;
+    public static final double kArmLength = 0;
+
     //Sensors
     public static final int kCoastDIO = 0;
 
