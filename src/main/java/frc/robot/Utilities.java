@@ -87,7 +87,7 @@ public class Utilities {
     /**
      * Sets a limit to the maximum value of an input.
      * 
-     * <p> useful as a speed limiter.
+     * <p>Useful as a speed limiter.
      * @param input The value to be processed
      * @param limit The maximum value
      * @return Returns input when |input| < |limit|, and otherwise returns
