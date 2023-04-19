@@ -63,6 +63,9 @@ public class Utilities {
     public static final double kReachLimit = 0;
     public static final double kArmLength = 0;
 
+    public static final double kElevationCountsPerDegree = 0;
+    public static final double kExtensionInchesPerCount = 0;
+
     //Sensors
     public static final int kCoastDIO = 0;
 
