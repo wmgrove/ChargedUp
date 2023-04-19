@@ -15,46 +15,46 @@ public class Arm {
     static Arm self = null;
 
     //Motors
-    CANSparkMax elevationMotor = new CANSparkMax(Utilities.kElevation, MotorType.kBrushless);
-    CANSparkMax extensionMotor = new CANSparkMax(Utilities.kExtension, MotorType.kBrushless);
-    Spark slideMotor = new Spark(Utilities.kSlide);
+    private CANSparkMax elevationMotor = new CANSparkMax(Utilities.kElevation, MotorType.kBrushless);
+    private CANSparkMax extensionMotor = new CANSparkMax(Utilities.kExtension, MotorType.kBrushless);
+    private Spark slideMotor = new Spark(Utilities.kSlide);
 
     //PIDs
-    PIDController slideController = Utilities.pidInitializer(Utilities.kSlidePID);
-    PIDController elevationController = Utilities.pidInitializer(Utilities.kElevationPID);
-    PIDController extensionController = Utilities.pidInitializer(Utilities.kExtensionPID);
+    private PIDController slideController = Utilities.pidInitializer(Utilities.kSlidePID);
+    private PIDController elevationController = Utilities.pidInitializer(Utilities.kElevationPID);
+    private PIDController extensionController = Utilities.pidInitializer(Utilities.kExtensionPID);
 
     //Control
-    SlewRateLimiter elevationAccel = new SlewRateLimiter(Utilities.kElevationAccel);
-    SlewRateLimiter extensionAccel = new SlewRateLimiter(Utilities.kExtensionAccel);
+    private SlewRateLimiter elevationAccel = new SlewRateLimiter(Utilities.kElevationAccel);
+    private SlewRateLimiter extensionAccel = new SlewRateLimiter(Utilities.kExtensionAccel);
 
-    boolean autoSlide = false;
-    boolean autoElevate = false;
-    boolean autoExtend = false;
+    private boolean autoSlide = false;
+    private boolean autoElevate = false;
+    private boolean autoExtend = false;
 
-    double armSpeed = 0;
-    double extensionSpeed = 0;
-    double slideSpeed = 0;
+    private double armSpeed = 0;
+    private double extensionSpeed = 0;
+    private double slideSpeed = 0;
 
     //Sense
-    SparkMaxLimitSwitch elevationForwardLimit = elevationMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SparkMaxLimitSwitch elevationReverseLimit = elevationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SparkMaxAnalogSensor elevationPosition = elevationMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
-    SparkMaxLimitSwitch extensionNearLimit = extensionMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SparkMaxLimitSwitch extensionFarLimit = extensionMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    SparkMaxAnalogSensor extensionPosition = extensionMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
-    DigitalInput slideLeftLimit = new DigitalInput(Utilities.kLeftLimitDIO);
-    DigitalInput slideRightLimit = new DigitalInput(Utilities.kRightLimitDIO);
-    AnalogPotentiometer slidePosition = new AnalogPotentiometer(Utilities.kSlidePot);
+    private SparkMaxLimitSwitch elevationForwardLimit = elevationMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    private SparkMaxLimitSwitch elevationReverseLimit = elevationMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    private SparkMaxAnalogSensor elevationPosition = elevationMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
+    private SparkMaxLimitSwitch extensionNearLimit = extensionMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    private SparkMaxLimitSwitch extensionFarLimit = extensionMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    private SparkMaxAnalogSensor extensionPosition = extensionMotor.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
+    private DigitalInput slideLeftLimit = new DigitalInput(Utilities.kLeftLimitDIO);
+    private DigitalInput slideRightLimit = new DigitalInput(Utilities.kRightLimitDIO);
+    private AnalogPotentiometer slidePosition = new AnalogPotentiometer(Utilities.kSlidePot);
 
     //Measurement
-    double extensionOrigin = 0;
-    double slideOrigin = 0;
-    double elevationOrigin = 0;
+    private double extensionOrigin = 0;
+    private double slideOrigin = 0;
+    private double elevationOrigin = 0;
 
-    double extensionTarget = 0;
-    double slideTarget = 0;
-    double elevationTarget = 0;
+    private double extensionTarget = 0;
+    private double slideTarget = 0;
+    private double elevationTarget = 0;
 
     public static Arm getArm () {
         if (self == null) {
@@ -112,8 +112,16 @@ public class Arm {
         slideSpeed = 0;
     }
 
-    public void armSpeed (double speed) {
+    public void elevate (double speed) {
         armSpeed = speed;
+    }
+
+    public void extend (double speed) {
+        extensionSpeed = speed;
+    }
+
+    public void slide (double speed) {
+        slideSpeed = speed;
     }
 
     public void autoExtend (double target) {
