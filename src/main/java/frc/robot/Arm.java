@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class Arm {
-    static Arm self = null;
+    private static Arm self = null;
 
     //Motors
     private CANSparkMax elevationMotor = new CANSparkMax(Utilities.kElevation, MotorType.kBrushless);
@@ -51,10 +51,6 @@ public class Arm {
     private double extensionOrigin = 0;
     private double slideOrigin = 0;
     private double elevationOrigin = 0;
-
-    private double extensionTarget = 0;
-    private double slideTarget = 0;
-    private double elevationTarget = 0;
 
     public static Arm getArm () {
         if (self == null) {
