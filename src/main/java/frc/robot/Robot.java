@@ -4,31 +4,27 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.drivebase.*;
-import frc.robot.arm.*;
-import frc.robot.gripper.*;
-/**
+
+/*
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private XboxController drivercontroller = new XboxController(0);
-  private Drivebase drivebase = new Drivebase(drivercontroller);
-  private Joystick operatorcontroller = new Joystick(1);
-  private Arm arm = new Arm(operatorcontroller);
-  private Gripper gripper = new Gripper(operatorcontroller);
+  private Driver driver = Driver.getDriver();
+  private Drivebase drivebase = Drivebase.getDrivebase();
+  private Gripper gripper = Gripper.getGripper();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -49,9 +45,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    drivebase.idle();
-    arm.idle();
-    gripper.idle();
   }
 
   /**
@@ -92,8 +85,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    //Driver and operator must run first, followed by autonomous, to improve
+    //responsiveness. Similarly, arm should run before gripper due to wrist.
+    driver.run();
     drivebase.run();
-    arm.run();
     gripper.run();
   }
   /** This function is called once when the robot is disabled. */
@@ -111,9 +106,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    drivebase.test();
-    arm.test();
-    gripper.test();
   }
 
   /** This function is called once when the robot is first started up. */
